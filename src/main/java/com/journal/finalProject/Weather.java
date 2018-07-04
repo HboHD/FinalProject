@@ -1,4 +1,7 @@
 package com.journal.finalProject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,11 +10,11 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.*;
-import com.google.gson.reflect.*;
-
 
 public class Weather {
+
+    private static String city;
+    private static Double temperature, humidity, windSpeed, windAngle;
 
     static String API_KEY = "7a9cbbef0205f377c465a38e5aaf6696";
     static String LOCATION = "Lodz,pl";
@@ -46,17 +49,25 @@ public class Weather {
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
-            System.out.println("Current Temp: " + mainMap.get("temp"));
-            System.out.print("Current Humidity: " + mainMap.get("humidity"));
-            System.out.println("Wind Speed: " + windMap.get("speed"));
-            System.out.println("Wind Angle: " + windMap.get("deg"));
+            city = LOCATION;
+            temperature = (Double)mainMap.get("temp");
+            humidity = (Double)mainMap.get("humidity");
+            windSpeed = (Double)windMap.get("speed");
+            windAngle = (Double)windMap.get("deg");
+
+            System.out.println("Location: " + city);
+            System.out.println("Current Temp: " + temperature);
+            System.out.print("Current Humidity: " + humidity);
+            System.out.println("Wind Speed: " + windSpeed);
+            System.out.println("Wind Angle: " + windAngle);
 
             StringBuilder sb = new StringBuilder("");
 
-            sb.append("Current Temp: " + mainMap.get("temp") +"\r\n");
-            sb.append("Current Humidity: " + mainMap.get("humidity") + "\r\n");
-            sb.append("Wind Speed: " + windMap.get("speed") +"\r\n");
-            sb.append("Wind Angle: " + windMap.get("deg") +"\r\n");
+            sb.append("Location: " + city + "\r\n");
+            sb.append("Current Temp: " + temperature +"\r\n");
+            sb.append("Current Humidity: " + humidity + "\r\n");
+            sb.append("Wind Speed: " + windSpeed +"\r\n");
+            sb.append("Wind Angle: " + windAngle +"\r\n");
 
             resToFile = sb.toString();
 
