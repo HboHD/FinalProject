@@ -77,7 +77,7 @@ public class JournalFileWriter {
             String fileName;
             String separator = "-";
 
-            fileName = String.valueOf(DD) + separator + String.valueOf(MM) + separator + String.valueOf(YYYY);
+            fileName = String.valueOf(DD) + separator + String.valueOf(MM) + separator + String.valueOf(YYYY) + "_journal";
 
             return fileName;
     }

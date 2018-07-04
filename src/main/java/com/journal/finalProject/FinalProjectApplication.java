@@ -21,7 +21,7 @@ public class FinalProjectApplication {
 
 	public static void main(String args[]) {
 		SpringApplication.run(FinalProjectApplication.class);
-		JournalFileWriter.newJournal(21,06,2018,"Hello");
+		JournalFileWriter.newJournal(04,07,2018,"Hello");
 	}
 
 	@Bean
