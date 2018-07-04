@@ -17,9 +17,12 @@ public class FinalProjectApplication implements CommandLineRunner {
 
         @Override
         public void run(String... strings) throws Exception {
-            JournalFileWriter.newJournal(04,07,2018,"Provided by best Weather application!");
+            Weather weatherService = new Weather();
+            JournalFileWriter.newJournal(04,07,2018,"Provided by best Weather application!", weatherService);
 
 			MyDatabase newDatabase = new MyDatabase(log);
+			newDatabase.CreateDatabase();
+			newDatabase.InsertWeatherReport(weatherService);
 	}
 
 }

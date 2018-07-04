@@ -7,17 +7,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class Weather {
 
-    private static String city;
-    private static Double temperature, humidity, windSpeed, windAngle;
+    public Weather() {
+        weatherReportList = new ArrayList<>();
+    }
+
+    public static List<WeatherReport> getWeatherReportList() {
+        return weatherReportList;
+    }
+
+    private static List<WeatherReport> weatherReportList;
 
     static String API_KEY = "7a9cbbef0205f377c465a38e5aaf6696";
     static String LOCATION = "Lodz,pl";
+
     static String myURL = "http://api.openweathermap.org/data/2.5/weather?q="+LOCATION+"&appid="+API_KEY+"&units=metric";
 
     public static Map<String, Object> jsonToMap(String str){
@@ -43,31 +53,30 @@ public class Weather {
             }
 
             rd.close();
-            System.out.println(result);
+            //System.out.println(result);
 
             Map<String, Object> respMap = jsonToMap(result.toString());
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
-            city = LOCATION;
-            temperature = (Double)mainMap.get("temp");
-            humidity = (Double)mainMap.get("humidity");
-            windSpeed = (Double)windMap.get("speed");
-            windAngle = (Double)windMap.get("deg");
-
-            System.out.println("Location: " + city);
-            System.out.println("Current Temp: " + temperature);
-            System.out.print("Current Humidity: " + humidity);
-            System.out.println("Wind Speed: " + windSpeed);
-            System.out.println("Wind Angle: " + windAngle);
+            System.out.println("Location: " + LOCATION);
+            System.out.println("Current Temp: " + mainMap.get("temp"));
+            System.out.print("Current Humidity: " + mainMap.get("humidity"));
+            System.out.println("Wind Speed: " + windMap.get("speed"));
+            System.out.println("Wind Angle: " + windMap.get("deg"));
 
             StringBuilder sb = new StringBuilder("");
 
-            sb.append("Location: " + city + "\r\n");
-            sb.append("Current Temp: " + temperature +"\r\n");
-            sb.append("Current Humidity: " + humidity + "\r\n");
-            sb.append("Wind Speed: " + windSpeed +"\r\n");
-            sb.append("Wind Angle: " + windAngle +"\r\n");
+            sb.append("Location: " + LOCATION + "\r\n");
+            sb.append("Current Temp: " + mainMap.get("temp") +"\r\n");
+            sb.append("Current Humidity: " + mainMap.get("humidity") + "\r\n");
+            sb.append("Wind Speed: " + windMap.get("speed") +"\r\n");
+            sb.append("Wind Angle: " + windMap.get("deg") +"\r\n");
+
+            WeatherReport rep = new WeatherReport(LOCATION, (Double)mainMap.get("temp"),
+                    (Double)mainMap.get("humidity"), (Double)windMap.get("speed"), (Double)windMap.get("deg"));
+
+            weatherReportList.add(rep);
 
             resToFile = sb.toString();
 

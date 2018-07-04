@@ -1,10 +1,10 @@
 package com.journal.finalProject;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 
 public class JournalFileWriter {
@@ -82,9 +82,9 @@ public class JournalFileWriter {
             return fileName;
     }
 
-    public static void newJournal(int DD, int MM, int YYYY, String content){
+    public static void newJournal(int DD, int MM, int YYYY, String content, Weather weather){
 
-        WriteFile(createFile(fileNameGenerator(DD, MM, YYYY)),Weather.getWeather()+content);
+        WriteFile(createFile(fileNameGenerator(DD, MM, YYYY)),weather.getWeather()+content);
 
     }
 }
