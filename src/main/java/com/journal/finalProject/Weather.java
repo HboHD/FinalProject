@@ -26,20 +26,22 @@ public class Weather {
     private static List<WeatherReport> weatherReportList;
 
     static String API_KEY = "7a9cbbef0205f377c465a38e5aaf6696";
-    static String LOCATION = "Lodz,pl";
+    //static String LOCATION = "Lodz,pl";
 
-    static String myURL = "http://api.openweathermap.org/data/2.5/weather?q="+LOCATION+"&appid="+API_KEY+"&units=metric";
+    static String myURL;
 
     public static Map<String, Object> jsonToMap(String str){
         Map<String, Object> map = new Gson().fromJson(str, new TypeToken<HashMap<String,Object>>() {}.getType());
         return map;
     }
 
-    public static String getWeather() {
+    public static String getWeather(String city) {
 
         String resToFile = "Default";
 
         try {
+
+            myURL = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+API_KEY+"&units=metric";
 
             StringBuilder result = new StringBuilder();
             URL url = new URL(myURL);
@@ -59,7 +61,7 @@ public class Weather {
             Map<String, Object> mainMap = jsonToMap(respMap.get("main").toString());
             Map<String, Object> windMap = jsonToMap(respMap.get("wind").toString());
 
-            System.out.println("Location: " + LOCATION);
+            System.out.println("Location: " + city);
             System.out.println("Current Temp: " + mainMap.get("temp"));
             System.out.print("Current Humidity: " + mainMap.get("humidity"));
             System.out.println("Wind Speed: " + windMap.get("speed"));
@@ -67,13 +69,13 @@ public class Weather {
 
             StringBuilder sb = new StringBuilder("");
 
-            sb.append("Location: " + LOCATION + "\r\n");
+            sb.append("Location: " + city + "\r\n");
             sb.append("Current Temp: " + mainMap.get("temp") +"\r\n");
             sb.append("Current Humidity: " + mainMap.get("humidity") + "\r\n");
             sb.append("Wind Speed: " + windMap.get("speed") +"\r\n");
             sb.append("Wind Angle: " + windMap.get("deg") +"\r\n");
 
-            WeatherReport rep = new WeatherReport(LOCATION, (Double)mainMap.get("temp"),
+            WeatherReport rep = new WeatherReport(city, (Double)mainMap.get("temp"),
                     (Double)mainMap.get("humidity"), (Double)windMap.get("speed"), (Double)windMap.get("deg"));
 
             weatherReportList.add(rep);

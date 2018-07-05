@@ -1,39 +1,71 @@
 package com.journal.finalProject;
 
+import javax.persistence.*;
+
 /**
  * Created by Piotrek on 2018-07-04.
  */
+@Entity
 public class WeatherReport {
 
-    private static String city;
-    private static Double temperature, humidity, windSpeed, windAngle;
+    @Id
+    @GeneratedValue
+    @Column(name = "id", nullable = false, unique = true)
+    private Long id;
 
+    private String city;
+    private Double temperature, humidity, windSpeed, windAngle;
 
-    public static String getCity() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+
+    public void setWindSpeed(Double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public void setWindAngle(Double windAngle) {
+        this.windAngle = windAngle;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCity() {
         return city;
     }
 
-    public static Double getTemperature() {
+    public Double getTemperature() {
         return temperature;
     }
 
-    public static Double getHumidity() {
+    public Double getHumidity() {
         return humidity;
     }
 
-    public static Double getWindSpeed() {
+    public Double getWindSpeed() {
         return windSpeed;
     }
 
-    public static Double getWindAngle() {
+    public Double getWindAngle() {
         return windAngle;
     }
 
 
-    public WeatherReport()
-    {
-
-    }
+    protected WeatherReport() {}
 
     public WeatherReport(String loc, Double temp,Double hum, Double speed,Double angle)
     {
@@ -48,7 +80,7 @@ public class WeatherReport {
     @Override
     public String toString() {
         return String.format(
-                "Weather[location='%s' temp=%d, humidity=%d, windSpeed=%d, windAngle=%d]",
-                city, temperature, humidity, windSpeed, windAngle);
+                "Weather[id=%d, location='%s' temp=%.02f, humidity=%.02f, windSpeed=%.02f, windAngle=%.02f]",
+                id, city, temperature, humidity, windSpeed, windAngle);
     }
 }

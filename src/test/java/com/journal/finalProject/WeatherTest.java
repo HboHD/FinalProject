@@ -16,6 +16,6 @@ public class WeatherTest {
     @Test
     public void getWeather() {
         Weather weather = new Weather();
-        assertNotEquals("Default", weather.getWeather());
+        assertNotEquals("Default", weather.getWeather("Lodz,pl"));
     }
 }

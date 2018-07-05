@@ -82,9 +82,9 @@ public class JournalFileWriter {
             return fileName;
     }
 
-    public static void newJournal(int DD, int MM, int YYYY, String content, Weather weather){
+    public static void newJournal(int DD, int MM, int YYYY, String content, Weather weather, String city){
 
-        WriteFile(createFile(fileNameGenerator(DD, MM, YYYY)),weather.getWeather()+content);
+        WriteFile(createFile(fileNameGenerator(DD, MM, YYYY)),weather.getWeather(city)+content);
 
     }
 }
